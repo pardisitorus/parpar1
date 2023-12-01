@@ -1,0 +1,8 @@
+streamlit==1.28.2
+sqlite3
+datetime==5.3
+qrcode==7.4.2
+pandas==2.1.1 
+seaborn==0.13.0
+Image== 1.5.33
+matplotlib==3.8.0
