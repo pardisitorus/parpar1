@@ -2,6 +2,7 @@ import streamlit as st
 import sqlite3
 from datetime import datetime
 import pandas as pd
+import seaborn as sns
 from PIL import Image
 
 # Inisialisasi database SQLite
@@ -124,6 +125,20 @@ def admin_page():
         else:
             st.warning("Silakan pilih ID Donasi yang ingin dihapus.")
 
+    # Menampilkan bar chart jumlah donasi per campaign dengan tema yang lebih keren
+    st.subheader("Bar Chart: Jumlah Donasi per Campaign")
+    bar_chart_data = df.groupby("Campaign")["Amount"].sum().reset_index()
+
+    # Membuat bar chart menggunakan seaborn dengan tema warna yang berbeda
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x="Campaign", y="Amount", data=bar_chart_data, ax=ax, palette="mako")
+    ax.set_xlabel("Campaign", fontsize=14, color="#2a2a2a")
+    ax.set_ylabel("Jumlah Donasi", fontsize=14, color="#2a2a2a")
+    ax.set_title("Total Donasi per Campaign", fontsize=16, color="#2a2a2a")
+    ax.tick_params(axis='x', colors='#2a2a2a')
+    ax.tick_params(axis='y', colors='#2a2a2a')
+    sns.despine()
+    st.pyplot(fig)
 
     # Menambahkan tombol keluar
     if st.button("Keluar", key="exit_button"):
