@@ -2,7 +2,6 @@ import streamlit as st
 import sqlite3
 from datetime import datetime
 import pandas as pd
-import seaborn as sns
 from PIL import Image
 
 # Inisialisasi database SQLite
