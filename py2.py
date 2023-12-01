@@ -4,8 +4,6 @@ from datetime import datetime
 import pandas as pd
 from PIL import Image
 
-plt.savefig('plot.png', format='png')
-
 # Inisialisasi database SQLite
 conn = sqlite3.connect('donation_app.db')
 c = conn.cursor()
