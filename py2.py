@@ -5,6 +5,8 @@ import pandas as pd
 import seaborn as sns
 from PIL import Image
 
+plt.savefig('plot.png', format='png')
+
 # Inisialisasi database SQLite
 conn = sqlite3.connect('donation_app.db')
 c = conn.cursor()
