@@ -58,6 +58,10 @@ def admin_login(username, password):
     admin_account = c.fetchone()
     return admin_account is not None
 
+# Fungsi untuk menghapus donasi dari database berdasarkan ID
+def delete_donation(donation_id):
+    c.execute('DELETE FROM donations WHERE id = ?', (donation_id,))
+    conn.commit()
 
 # Halaman utama
 def home():
@@ -101,6 +105,24 @@ def admin_page():
                                {'selector': 'tr:hover', 'props': [('background-color', '#4a4a4a')]}])
              .highlight_max(axis=0, color='#FFDD00')
              .set_properties(**{'text-align': 'center'}))
+
+    # Menambahkan fitur hapus donasi
+    st.subheader("Hapus Donasi")
+
+    # Menampilkan ID donasi untuk dipilih
+    selected_donation_id= st.selectbox("Pilih ID Donasi yang akan dihapus", df["ID"].tolist(), index=0, key="donation_id")
+    
+    # Menampilkan tombol "Hapus" dengan konfirmasi modal
+    delete_button_label = "Hapus Donasi"  # Provide a label for the button
+    if st.button(delete_button_label, key="delete_button"):
+        if selected_donation_id:
+            # Tampilkan konfirmasi modal
+            confirm_delete = st.button("Konfirmasi Hapus", key="confirm_delete")
+            if confirm_delete:
+                delete_donation(selected_donation_id)
+                st.success(f"Donasi dengan ID {selected_donation_id} berhasil dihapus.")
+        else:
+            st.warning("Silakan pilih ID Donasi yang ingin dihapus.")
 
     # Menampilkan bar chart jumlah donasi per campaign dengan tema yang lebih keren
     st.subheader("Bar Chart: Jumlah Donasi per Campaign")
